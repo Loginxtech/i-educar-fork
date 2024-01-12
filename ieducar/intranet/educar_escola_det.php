@@ -189,6 +189,23 @@ return new class extends clsDetalhe
             $this->url_editar = "educar_escola_cad.php?cod_escola={$registro['cod_escola']}";
             $this->array_botao = ['Definir Ano Letivo'];
             $this->array_botao_url = ["educar_escola_ano_letivo_cad.php?cod_escola={$registro['cod_escola']}"];
+
+
+            // Adição de codigo do modulo sed
+            if (config(key: 'sed.create_escola.display')) {
+                $link = config('sed.create_escola.route');
+
+                $link = str_replace(search: [
+                    '@escola',
+                ], replace: [
+                    $registro['cod_escola']
+                ], subject: $link);
+
+                array_push($this->array_botao, config(key: 'sed.create_escola.title'));
+                array_push($this->array_botao_url, $link);
+            }
+            // Fim adição de codigo do modulo sed
+
         }
 
         $styles = ['/vendor/legacy/Cadastro/Assets/Stylesheets/EscolaAnosLetivos.css'];

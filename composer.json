@@ -76,6 +76,7 @@
             "ieducar/intranet/include/funcoes.inc.php"
         ],
         "psr-4": {
+            "Edutopia\\Sed\\": "packages/edutopia/ieducar-sed/src",
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Custom\\": "database/custom/",

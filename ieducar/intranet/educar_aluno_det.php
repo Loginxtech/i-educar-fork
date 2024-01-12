@@ -629,6 +629,21 @@ return new class extends clsDetalhe
                 array_unshift($this->array_botao, $titulo);
                 array_unshift($this->array_botao_url_script, $link);
             }
+
+            // Adição de codigo do modulo sed
+            if (config(key: 'sed.create_aluno.display')) {
+                $link = config('sed.create_aluno.route');
+
+                $link = str_replace(search: [
+                    '@aluno',
+                ], replace: [
+                    $registro['cod_aluno']
+                ], subject: $link);
+
+                array_push($this->array_botao, config(key: 'sed.create_aluno.title'));
+                array_push($this->array_botao_url_script, $link);
+            }
+            // Fim adição de codigo do modulo sed
         }
 
         $objFichaMedica = new clsModulesFichaMedicaAluno(ref_cod_aluno: $this->cod_aluno);
