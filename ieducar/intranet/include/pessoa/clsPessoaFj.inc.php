@@ -270,8 +270,8 @@ class clsPessoaFj extends Model
 
                 $this->bairro = $place->neighborhood;
                 $this->logradouro = $place->address;
-                $this->sigla_uf = $place->city->state->abbreviation;
-                $this->cidade = $place->city->name;
+                $this->sigla_uf = $place->city?->state?->abbreviation;
+                $this->cidade = $place->city?->name;
                 $this->reside_desde = null;
                 $this->idtlog = $place->id;
                 $this->complemento = $place->complement;

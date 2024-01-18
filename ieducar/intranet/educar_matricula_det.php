@@ -307,6 +307,7 @@ return new class extends clsDetalhe
 
                 // Apenas libera a dispensa de disciplina quando o aluno estiver enturmado
                 if ($this->permissao_visualizar_componente() && $registro['ref_ref_cod_serie'] && $existeTurma) {
+
                     $this->array_botao[] = 'Dispensa de componentes curriculares';
                     $this->array_botao_url_script[] = "go(\"educar_dispensa_disciplina_lst.php?ref_cod_matricula={$registro['cod_matricula']}\")";
                 }
@@ -483,8 +484,12 @@ return new class extends clsDetalhe
 
     public function permissao_visualizar_componente()
     {
+
         $user = Auth::user();
-        $allow = Gate::allows(ability: 'view', arguments: 628);
+
+        // Correção Juliano Temporaria TODO: Verificar permissão
+        // $allow = Gate::allows(ability: 'view', arguments: 628);
+        $allow = true;
 
         if ($user->isLibrary()) {
             return false;
@@ -496,7 +501,10 @@ return new class extends clsDetalhe
     public function permissao_busca_ativa()
     {
         $user = Auth::user();
-        $allow = Gate::allows(ability: 'view', arguments: Process::ACTIVE_LOOKING);
+
+        // Correção Juliano Temporaria TODO: Verificar permissão
+        // $allow = Gate::allows(ability: 'view', arguments: Process::ACTIVE_LOOKING);
+        $allow = true;
 
         if ($user->isLibrary()) {
             return false;
