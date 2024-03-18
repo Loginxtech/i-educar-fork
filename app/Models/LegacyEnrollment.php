@@ -60,6 +60,7 @@ class LegacyEnrollment extends LegacyModel
         'itinerario_concomitante',
         'etapa_educacenso',
         'cod_curso_profissional',
+        'cod_profissional_apoio',
     ];
 
     protected $casts = [
@@ -164,5 +165,15 @@ class LegacyEnrollment extends LegacyModel
     public function getStudentId()
     {
         return $this->registration->student->cod_aluno;
+    }
+
+    /**
+     * Relação com a profissional de apoio.
+     *
+     * @return BelongsTo
+     */
+    public function supportProfissional()
+    {
+        return $this->belongsTo(Employee::class, 'cod_profissional_apoio');
     }
 }
