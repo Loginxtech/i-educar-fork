@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\LegacyAbandonmentType;
+use App\Models\LegacyRegistration;
 use App\Process;
 use iEducar\Modules\Educacenso\Model\TipoAtendimentoTurma;
 use iEducar\Modules\Educacenso\Model\UnidadesCurriculares;
@@ -429,6 +430,14 @@ return new class extends clsDetalhe
         if ($this->user()->can(abilities: 'view', arguments: Process::ENROLLMENT_HISTORY)) {
             $this->array_botao[] = 'Histórico de enturmações';
             $link = route(name: 'enrollments.enrollment-history', parameters: ['id' => $registro['cod_matricula']]);
+            $this->array_botao_url_script[] = "go(\"{$link}\")";
+        }
+
+        $registration = LegacyRegistration::find($registro['cod_matricula']);
+
+        if ($registration->student->deficiencies()->exists()) {
+            $this->array_botao[] = 'Vincular profissional de apoio';
+            $link = route(name: 'registration.support-professional.index', parameters: $registro['cod_matricula']);
             $this->array_botao_url_script[] = "go(\"{$link}\")";
         }
 
