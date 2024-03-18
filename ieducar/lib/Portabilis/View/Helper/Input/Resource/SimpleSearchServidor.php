@@ -2,6 +2,21 @@
 
 class Portabilis_View_Helper_Input_Resource_SimpleSearchServidor extends Portabilis_View_Helper_Input_SimpleSearch
 {
+    protected function resourceValue($id)
+    {
+        if ($id) {
+            $sql = '
+                select nome
+                from pmieducar.servidor
+                join cadastro.pessoa ON pessoa.idpes = servidor.cod_servidor
+                where cod_servidor = $1
+            ';
+            $options = ['params' => $id, 'return_only' => 'first-field'];
+
+            return Portabilis_Utils_Database::fetchPreparedQuery($sql, $options);
+        }
+    }
+
     public function simpleSearchServidor($attrName = '', $options = [])
     {
         $defaultOptions = [
