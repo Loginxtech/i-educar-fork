@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\LegacyAbandonmentType;
+use App\Models\LegacyRegistration;
 use App\Process;
 use iEducar\Modules\Educacenso\Model\TipoAtendimentoTurma;
 use iEducar\Modules\Educacenso\Model\UnidadesCurriculares;
@@ -433,6 +434,14 @@ return new class extends clsDetalhe
             $this->array_botao_url_script[] = "go(\"{$link}\")";
         }
 
+        $registration = LegacyRegistration::find($registro['cod_matricula']);
+
+        if ($registration->student->deficiencies()->exists()) {
+            $this->array_botao[] = 'Vincular profissional de apoio';
+            $link = route(name: 'registration.support-professional.index', parameters: $registro['cod_matricula']);
+            $this->array_botao_url_script[] = "go(\"{$link}\")";
+        }
+
 
         // Adição de codigo do modulo sed
         if (config(key: 'sed.create_matricula.display')) {
@@ -450,7 +459,6 @@ return new class extends clsDetalhe
             array_push($this->array_botao_url_script, $link);
         }
         // Fim adição de codigo do modulo sed
-
 
         $this->url_cancelar = 'educar_aluno_det.php?cod_aluno=' . $registro['ref_cod_aluno'];
         $this->largura = '100%';
