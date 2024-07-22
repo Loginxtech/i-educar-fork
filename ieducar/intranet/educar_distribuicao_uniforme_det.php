@@ -52,65 +52,77 @@ return new class extends clsDetalhe
             ]);
         }
 
-        $this->addDetalhe(detalhe: [
-            'Escola fornecedora',
-            $uniformDistribution->school->name,
-        ]);
-
-        if ($uniformDistribution->complete_kit) {
+        if ($uniformDistribution->winter_kit || $uniformDistribution->summer_kit) {
             $this->addDetalhe(detalhe: [
-                'Recebeu kit completo',
-                'Sim',
+                'Tipo de kit',
+                $uniformDistribution->winter_kit ? 'Inverno' : 'Verão',
+            ]);
+
+            $this->addDetalhe(detalhe: [
+                'Tamanho',
+                $uniformDistribution->kit_size,
             ]);
         } else {
             $this->addDetalhe(detalhe: [
-                'Recebeu kit completo',
-                'Não',
+                'Escola fornecedora',
+                $uniformDistribution->school->name,
             ]);
-            $this->addDetalhe(detalhe: [
-                'Quantidade de agasalhos (jaqueta)',
-                $uniformDistribution->coat_pants_qty ?: '0',
-            ]);
-            $this->addDetalhe(detalhe: [
-                'Quantidade de agasalhos (calça)',
-                $uniformDistribution->coat_jacket_qty ?: '0',
-            ]);
-            $this->addDetalhe(detalhe: [
-                'Quantidade de camisetas (manga curta)',
-                $uniformDistribution->shirt_short_qty ?: '0',
-            ]);
-            $this->addDetalhe(detalhe: [
-                'Quantidade de camisetas (manga longa)',
-                $uniformDistribution->shirt_long_qty ?: '0',
-            ]);
-            $this->addDetalhe(detalhe: [
-                'Quantidade de camisetas infantis (sem manga)',
-                $uniformDistribution->kids_shirt_qty ?: '0',
-            ]);
-            $this->addDetalhe(detalhe: [
-                'Quantidade de calça jeans',
-                $uniformDistribution->pants_jeans_qty ?: '0',
-            ]);
-            $this->addDetalhe(detalhe: [
-                'Quantidade de meias',
-                $uniformDistribution->meias_qtd ?: '0',
-            ]);
-            $this->addDetalhe(detalhe: [
-                'Quantidade de saias',
-                $uniformDistribution->skirt_qty ?: '0',
-            ]);
-            $this->addDetalhe(detalhe: [
-                'Bermuda masculina (tecidos diversos)',
-                $uniformDistribution->shorts_tactel_qty ?: '0',
-            ]);
-            $this->addDetalhe(detalhe: [
-                'Bermuda feminina (tecidos diversos)',
-                $uniformDistribution->shorts_coton_qty ?: '0',
-            ]);
-            $this->addDetalhe(detalhe: [
-                'Quantidade de tênis',
-                $uniformDistribution->sneakers_qty ?: '0',
-            ]);
+
+            if ($uniformDistribution->complete_kit) {
+                $this->addDetalhe(detalhe: [
+                    'Recebeu kit completo',
+                    'Sim',
+                ]);
+            } else {
+                $this->addDetalhe(detalhe: [
+                    'Recebeu kit completo',
+                    'Não',
+                ]);
+                $this->addDetalhe(detalhe: [
+                    'Quantidade de agasalhos (jaqueta)',
+                    $uniformDistribution->coat_pants_qty ?: '0',
+                ]);
+                $this->addDetalhe(detalhe: [
+                    'Quantidade de agasalhos (calça)',
+                    $uniformDistribution->coat_jacket_qty ?: '0',
+                ]);
+                $this->addDetalhe(detalhe: [
+                    'Quantidade de camisetas (manga curta)',
+                    $uniformDistribution->shirt_short_qty ?: '0',
+                ]);
+                $this->addDetalhe(detalhe: [
+                    'Quantidade de camisetas (manga longa)',
+                    $uniformDistribution->shirt_long_qty ?: '0',
+                ]);
+                $this->addDetalhe(detalhe: [
+                    'Quantidade de camisetas infantis (sem manga)',
+                    $uniformDistribution->kids_shirt_qty ?: '0',
+                ]);
+                $this->addDetalhe(detalhe: [
+                    'Quantidade de calça jeans',
+                    $uniformDistribution->pants_jeans_qty ?: '0',
+                ]);
+                $this->addDetalhe(detalhe: [
+                    'Quantidade de meias',
+                    $uniformDistribution->meias_qtd ?: '0',
+                ]);
+                $this->addDetalhe(detalhe: [
+                    'Quantidade de saias',
+                    $uniformDistribution->skirt_qty ?: '0',
+                ]);
+                $this->addDetalhe(detalhe: [
+                    'Bermuda masculina (tecidos diversos)',
+                    $uniformDistribution->shorts_tactel_qty ?: '0',
+                ]);
+                $this->addDetalhe(detalhe: [
+                    'Bermuda feminina (tecidos diversos)',
+                    $uniformDistribution->shorts_coton_qty ?: '0',
+                ]);
+                $this->addDetalhe(detalhe: [
+                    'Quantidade de tênis',
+                    $uniformDistribution->sneakers_qty ?: '0',
+                ]);
+            }
         }
 
         $obj_permissoes = new clsPermissoes();

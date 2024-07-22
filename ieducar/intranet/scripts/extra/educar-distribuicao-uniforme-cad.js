@@ -27,15 +27,64 @@ function liberaCamposQuantidade() {
   $j('#coat_jacket_qty').val('').removeAttr('disabled');
 }
 
+
+function escondeCamposItens() {
+  $j('#coat_pants_qty').closest('tr').hide();
+  $j('#shirt_short_qty').closest('tr').hide();
+  $j('#shirt_long_qty').closest('tr').hide();
+  $j('#socks_qty').closest('tr').hide();
+  $j('#shorts_tactel_qty').closest('tr').hide();
+  $j('#shorts_coton_qty').closest('tr').hide();
+  $j('#sneakers_qty').closest('tr').hide();
+  $j('#kids_shirt_qty').closest('tr').hide();
+  $j('#pants_jeans_qty').closest('tr').hide();
+  $j('#skirt_qty').closest('tr').hide();
+  $j('#coat_jacket_qty').closest('tr').hide();
+  return true;
+}
+
+function apresentaCamposItens() {
+  $j('#coat_pants_qty').closest('tr').show();
+  $j('#shirt_short_qty').closest('tr').show();
+  $j('#shirt_long_qty').closest('tr').show();
+  $j('#socks_qty').closest('tr').show();
+  $j('#shorts_tactel_qty').closest('tr').show();
+  $j('#shorts_coton_qty').closest('tr').show();
+  $j('#sneakers_qty').closest('tr').show();
+  $j('#kids_shirt_qty').closest('tr').show();
+  $j('#pants_jeans_qty').closest('tr').show();
+  $j('#skirt_qty').closest('tr').show();
+  $j('#coat_jacket_qty').closest('tr').show();
+  return true;
+}
+
+
 $j(document).ready(function () {
-  if ($j('#complete_kit').is(':checked'))
+  $j('#kit_size').closest('tr').hide();
+
+  if ($j('#kit_type').val() == 1)
     bloqueiaCamposQuantidade();
 
-  $j('#complete_kit').on('change', function () {
-    if ($j('#complete_kit').is(':checked'))
+  if ($j('#kit_type').val() == 2 || $j('#kit_type').val() == 3)  {
+    escondeCamposItens();
+    $j('#kit_size').closest('tr').show();
+  }
+
+  $j('#kit_type').on('change', function () {
+    if ($j('#kit_type').val() == 1) {
       bloqueiaCamposQuantidade();
-    else
+      apresentaCamposItens();
+      $j('#kit_size').closest('tr').hide();
+    }
+    else if ($j('#kit_type').val() == 2 || $j('#kit_type').val() == 3) {
+      escondeCamposItens();
+      $j('#kit_size').closest('tr').show();
+    }
+    else {
       liberaCamposQuantidade();
+      apresentaCamposItens();
+      $j('#kit_size').closest('tr').hide();
+    }
   });
 
   if ($j('#type').val() != 'Entregue')
