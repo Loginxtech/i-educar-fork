@@ -96,8 +96,27 @@ return new class() extends clsCadastro
 
         $this->campoQuebra();
 
-        $this->inputsHelper()->checkbox(attrName: 'complete_kit', inputOptions: [
-            'label' => 'Kit completo', 'value' => request(key: 'complete_kit', default: $this->uniformDistribution->complete_kit),
+        $options = [
+            'label' => 'Tipo de kit',
+            'value' => $this->uniformDistribution->getKitType(),
+            'resources' => [
+                '' => 'Selecione',
+                1 => 'Completo',
+                2 => 'Inverno',
+                3 => 'Verão',
+            ],
+            'required' => false,
+        ];
+
+        $this->inputsHelper()->select(attrName: 'kit_type', inputOptions: $options);
+
+        $this->inputsHelper()->text(attrNames: 'kit_size', inputOptions: [
+            'required' => false,
+            'label' => 'Tamanho',
+            'value' => request(key: 'kit_size', default: $this->uniformDistribution->kit_size),
+            'max_length' => 10,
+            'size' => 15,
+            'placeholder' => 'Tamanho',
         ]);
 
         $this->inputsHelper()->integer(attrName: 'coat_pants_qty', inputOptions: [
@@ -317,9 +336,22 @@ return new class() extends clsCadastro
         $obj_permissoes = new clsPermissoes();
         $obj_permissoes->permissao_cadastra(int_processo_ap: 578, int_idpes_usuario: $this->pessoa_logada, int_soma_nivel_acesso: 7, str_pagina_redirecionar: 'educar_distribuicao_uniforme_lst.php?ref_cod_aluno='.request('ref_cod_aluno'));
 
-        $exists = UniformDistribution::where('student_id', request('ref_cod_aluno'))
-            ->where('year', request('year'))
-            ->exists();
+        $query = UniformDistribution::where('student_id', request('ref_cod_aluno'))
+            ->where('year', request('year'));
+
+        if ($this->kit_type == 2) {
+            $query->where(function($query) {
+                $query->where('winter_kit', true)
+                      ->orWhere('complete_kit', true);
+            });
+        } elseif ($this->kit_type == 3) {
+            $query->where(function($query) {
+                $query->where('summer_kit', true)
+                      ->orWhere('complete_kit', true);
+            });
+        }
+
+        $exists = $query->exists();
 
         if ($exists) {
             $this->mensagem = 'Já existe uma distribuição cadastrada para este ano, por favor, verifique.<br>';
@@ -338,7 +370,27 @@ return new class() extends clsCadastro
             'student_id' => request('ref_cod_aluno'),
         ]);
 
-        $this->uniformDistribution = UniformDistribution::create(request()->all());
+        $data = request()->all();
+
+        switch ($this->kit_type) {
+            case 1:
+                $data['complete_kit'] = true;
+                $data['winter_kit'] = false;
+                $data['summer_kit'] = false;
+                break;
+            case 2:
+                $data['complete_kit'] = false;
+                $data['winter_kit'] = true;
+                $data['summer_kit'] = false;
+                break;
+            case 3:
+                $data['complete_kit'] = false;
+                $data['winter_kit'] = false;
+                $data['summer_kit'] = true;
+                break;
+        }
+
+        $this->uniformDistribution = UniformDistribution::create($data);
 
         if ($this->uniformDistribution) {
             $this->redirectIf(condition: true, url: 'educar_distribuicao_uniforme_lst.php?ref_cod_aluno='.request('ref_cod_aluno'));
@@ -364,6 +416,24 @@ return new class() extends clsCadastro
             $this->mensagem = 'Já existe uma distribuição cadastrada para este ano, por favor, verifique.<br>';
 
             return false;
+        }
+
+        switch ($this->kit_type) {
+            case 1:
+                $uniformDistribution->complete_kit = true;
+                $uniformDistribution->winter_kit = false;
+                $uniformDistribution->summer_kit = false;
+                break;
+            case 2:
+                $uniformDistribution->complete_kit = false;
+                $uniformDistribution->winter_kit = true;
+                $uniformDistribution->summer_kit = false;
+                break;
+            case 3:
+                $uniformDistribution->complete_kit = false;
+                $uniformDistribution->winter_kit = false;
+                $uniformDistribution->summer_kit = true;
+                break;
         }
 
         request()->merge([

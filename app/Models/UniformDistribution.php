@@ -16,6 +16,8 @@ class UniformDistribution extends Model
 
     protected $casts = [
         'complete_kit' => 'boolean',
+        'winter_kit' => 'boolean',
+        'summer_kit' => 'boolean',
         'distribution_date' => 'date:d/m/Y',
     ];
 
@@ -24,6 +26,9 @@ class UniformDistribution extends Model
         'year',
         'distribution_date',
         'complete_kit',
+        'winter_kit',
+        'summer_kit',
+        'kit_size',
         'coat_pants_qty',
         'shirt_short_qty',
         'shirt_long_qty',
@@ -58,6 +63,20 @@ class UniformDistribution extends Model
     public function school(): BelongsTo
     {
         return $this->belongsTo(LegacySchool::class, 'school_id');
+    }
+
+    public function getKitType() {
+        if ($this->complete_kit) {
+            return 1;
+        }
+
+        if ($this->winter_kit) {
+            return 2;
+        }
+
+        if ($this->summer_kit) {
+            return 3;
+        }
     }
 
     protected function distributionDate(): Attribute

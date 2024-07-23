@@ -35,7 +35,7 @@ return new class extends clsListagem
             $this->simpleRedirect(url: 'educar_aluno_lst.php');
         }
 
-        $this->addCabecalhos(coluna: ['Ano', 'Kit completo', 'Tipo', 'Data da Distribuição']);
+        $this->addCabecalhos(coluna: ['Ano', 'Tipo de kit', 'Tipo', 'Data da Distribuição']);
 
         $obj_permissao = new clsPermissoes();
         $obj_permissao->nivel_acesso(int_idpes_usuario: $this->pessoa_logada);
@@ -65,11 +65,18 @@ return new class extends clsListagem
 
         // monta a lista
         if (is_array(value: $lista) && count(value: $lista)) {
+            $kitTypes = [
+                '' => 'Não informado',
+                1 => 'Completo',
+                2 => 'Inverno',
+                3 => 'Verão',
+            ];
+
             foreach ($lista as $uniformDistribution) {
-                $complete_kit = $uniformDistribution->complete_kit ? 'SIM' : 'NÃO';
+                $kitType = $kitTypes[$uniformDistribution->getKitType()];
                 $lista_busca = [
                     "<a href=\"educar_distribuicao_uniforme_det.php?ref_cod_aluno={$uniformDistribution->student_id}&cod_distribuicao_uniforme={$uniformDistribution->id}\">{$uniformDistribution->year}</a>",
-                    "<a href=\"educar_distribuicao_uniforme_det.php?ref_cod_aluno={$uniformDistribution->student_id}&cod_distribuicao_uniforme={$uniformDistribution->id}\">{$complete_kit}</a>",
+                    "<a href=\"educar_distribuicao_uniforme_det.php?ref_cod_aluno={$uniformDistribution->student_id}&cod_distribuicao_uniforme={$uniformDistribution->id}\">{$kitType}</a>",
                     "<a href=\"educar_distribuicao_uniforme_det.php?ref_cod_aluno={$uniformDistribution->student_id}&cod_distribuicao_uniforme={$uniformDistribution->id}\">{$uniformDistribution->type}</a>",
                     "<a href=\"educar_distribuicao_uniforme_det.php?ref_cod_aluno={$uniformDistribution->student_id}&cod_distribuicao_uniforme={$uniformDistribution->id}\">{$uniformDistribution->distribution_date?->format('d/m/Y')}</a>",
                 ];
