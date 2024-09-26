@@ -393,6 +393,18 @@ return new class() extends clsDetalhe
             }
             // Fim adição de codigo do modulo sed
 
+            if (config(key: 'sed.create_uniformes.display')) {
+                $link = config('sed.create_uniformes.route');
+
+                $link = str_replace(search: [
+                    '@turma',
+                ], replace: [
+                    $registro['cod_turma']
+                ], subject: $link);
+
+                array_push($this->array_botao, config(key: 'sed.create_uniformes.title'));
+                array_push($this->array_botao_url_script, $link);
+            }
         }
 
         $this->url_cancelar = 'educar_turma_lst.php';
