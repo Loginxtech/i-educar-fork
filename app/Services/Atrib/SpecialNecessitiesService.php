@@ -2,7 +2,7 @@
 
 namespace App\Services\Atrib;
 
-use App\Repositories\SpecialNecessitiesRepository;
+use App\Repositories\Atrib\SpecialNecessitiesRepository;
 use Illuminate\Support\Collection;
 
 class SpecialNecessitiesService
