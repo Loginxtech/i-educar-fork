@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\People;
 
 use App\Http\Controllers\ResourceController;
 use App\Models\LegacyDeficiency;
+use App\Services\SpecialNecessitiesService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -32,5 +33,10 @@ class LegacyDeficiencyController extends ResourceController
     public function destroy(LegacyDeficiency $deficiency, Request $request): JsonResource
     {
         return $this->delete($deficiency, $request);
+    }
+
+    public function getAtribData(int $schoolCode, string $serie): JsonResource
+    {
+        return $this->newCollection(app(SpecialNecessitiesService::class)->getRecentStudentsData($schoolCode, $serie));
     }
 }
