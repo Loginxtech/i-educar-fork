@@ -17,6 +17,7 @@ class SpecialNecessitiesRepository
     public function __invoke(int $schoolCode, string $serie): Collection
     {
         $currentYear = today()->format('Y');
+
         return LegacyStudent::select([
             'escola.idpes as codigo_escola',
             'escola.fantasia as nome_escola',
@@ -42,7 +43,7 @@ class SpecialNecessitiesRepository
             ->leftJoin(
                 'pmieducar.matricula as m2',
                 fn($join) => $join->on('m2.ref_cod_aluno', '=', 'pmieducar.aluno.cod_aluno')
-                    ->where('m2.ano', $currentYear)
+                    ->where('m2.ano', (int)$currentYear)
                     ->where('m2.ativo', self::ACTIVE_REGISTRATION)
                     ->whereColumn('m2.cod_matricula', '<>', 'm1.cod_matricula')
             )
@@ -52,7 +53,7 @@ class SpecialNecessitiesRepository
             ->leftJoin('pmieducar.escola as esco', 'esco.cod_escola', '=', 'm1.ref_ref_cod_escola')
             ->leftJoin('cadastro.juridica as escola', 'escola.idpes', '=', 'esco.ref_idpes')
             ->where('m1.aprovado', self::ENROLLED_STUDENT)
-            ->where('m1.ano', $currentYear)
+            ->where('m1.ano', (int)$currentYear)
             ->where('m1.ativo', self::ACTIVE_REGISTRATION)
             ->where('mt1.ativo', self::ACTIVE_REGISTRATION)
             ->where('m1.ref_ref_cod_serie', $this->getSpecialSerie($serie))
