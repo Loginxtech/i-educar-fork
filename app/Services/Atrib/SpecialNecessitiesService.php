@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Atrib;
 
 use App\Repositories\SpecialNecessitiesRepository;
 use Illuminate\Support\Collection;

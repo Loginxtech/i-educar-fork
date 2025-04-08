@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Atrib;
 
 use App\Exceptions\Atrib\SerieNotFound;
 use App\Models\LegacyStudent;
