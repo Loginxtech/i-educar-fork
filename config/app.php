@@ -179,7 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\AssetServiceProvider::class,
         App\Providers\HorizonServiceProvider::class,
-        Edutopia\Sed\SedServiceProvider::class,
+        // Edutopia\Sed\SedServiceProvider::class,
     ],
 
     /*

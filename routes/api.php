@@ -34,7 +34,7 @@ Route::group(
     [
         'middleware' => 'auth:sanctum',
     ],
-    static fn () => Route::apiResources([
+    static fn() => Route::apiResources([
         'country' => CountryController::class,
         'state' => StateController::class,
         'district' => DistrictController::class,
@@ -43,6 +43,8 @@ Route::group(
         'person/deficiency' => LegacyDeficiencyController::class,
     ])
 );
+
+Route::get('atrib/{school_code}/{serie}', 'Api\\People\\LegacyDeficiencyController@getAtribData');
 
 Route::get('version', 'Api\\VersionController@version');
 
