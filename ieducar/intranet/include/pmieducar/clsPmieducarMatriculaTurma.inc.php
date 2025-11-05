@@ -945,7 +945,8 @@ class clsPmieducarMatriculaTurma extends Model
             sequencial_fechamento,
             ref_cod_matricula,
             relatorio.view_situacao_relatorios.texto_situacao situacao,
-            matricula_turma.id
+            matricula_turma.id,
+            aluno.cod_aluno
         FROM
             cadastro.pessoa
             INNER JOIN pmieducar.aluno ON ( aluno.ref_idpes = pessoa.idpes )
@@ -961,7 +962,8 @@ class clsPmieducarMatriculaTurma extends Model
             sequencial_fechamento,
             nome,
             relatorio.view_situacao_relatorios.texto_situacao,
-            matricula_turma.id
+            matricula_turma.id,
+            aluno.cod_aluno
 
         ORDER BY
             sequencial_fechamento,
