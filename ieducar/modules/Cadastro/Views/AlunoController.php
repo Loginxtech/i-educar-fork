@@ -621,7 +621,7 @@ class AlunoController extends Portabilis_Controller_Page_EditController
 
         $options = [
             'required' => false,
-            'label' => 'Nome autorizado a buscar o aluno / Parentesco',
+            'label' => 'Nome autorizado a buscar o aluno / Parentesco / Telefone',
 
             'placeholder' => 'Nome autorizado',
             'max_length' => 150,
@@ -634,16 +634,16 @@ class AlunoController extends Portabilis_Controller_Page_EditController
         $options = [
             'required' => false,
             'label' => '',
-            'placeholder' => 'Parentesco',
+            'placeholder' => 'Parentesco/Telefone',
             'max_length' => 150,
-            'size' => 15,
+            'size' => 30,
         ];
 
         $this->inputsHelper()->text('parentesco_um', $options);
 
         $options = [
             'required' => false,
-            'label' => 'Nome autorizado a buscar o aluno / Parentesco',
+            'label' => 'Nome autorizado a buscar o aluno / Parentesco / Telefone',
             'placeholder' => 'Nome autorizado',
             'max_length' => 150,
             'size' => 50,
@@ -655,16 +655,16 @@ class AlunoController extends Portabilis_Controller_Page_EditController
         $options = [
             'required' => false,
             'label' => '',
-            'placeholder' => 'Parentesco',
+            'placeholder' => 'Parentesco/Telefone',
             'max_length' => 150,
-            'size' => 15,
+            'size' => 30,
         ];
 
         $this->inputsHelper()->text('parentesco_dois', $options);
 
         $options = [
             'required' => false,
-            'label' => 'Nome autorizado a buscar o aluno / Parentesco',
+            'label' => 'Nome autorizado a buscar o aluno / Parentesco / Telefone',
             'placeholder' => 'Nome autorizado',
             'max_length' => 150,
             'size' => 50,
@@ -676,16 +676,16 @@ class AlunoController extends Portabilis_Controller_Page_EditController
         $options = [
             'required' => false,
             'label' => '',
-            'placeholder' => 'Parentesco',
+            'placeholder' => 'Parentesco/Telefone',
             'max_length' => 150,
-            'size' => 15,
+            'size' => 30,
         ];
 
         $this->inputsHelper()->text('parentesco_tres', $options);
 
         $options = [
             'required' => false,
-            'label' => 'Nome autorizado a buscar o aluno / Parentesco',
+            'label' => 'Nome autorizado a buscar o aluno / Parentesco / Telefone',
             'placeholder' => 'Nome autorizado',
             'max_length' => 150,
             'size' => 50,
@@ -697,16 +697,16 @@ class AlunoController extends Portabilis_Controller_Page_EditController
         $options = [
             'required' => false,
             'label' => '',
-            'placeholder' => 'Parentesco',
+            'placeholder' => 'Parentesco/Telefone',
             'max_length' => 150,
-            'size' => 15,
+            'size' => 30,
         ];
 
         $this->inputsHelper()->text('parentesco_quatro', $options);
 
         $options = [
             'required' => false,
-            'label' => 'Nome autorizado a buscar o aluno / Parentesco',
+            'label' => 'Nome autorizado a buscar o aluno / Parentesco / Telefone',
             'placeholder' => 'Nome autorizado',
 
             'max_length' => 150,
@@ -719,9 +719,9 @@ class AlunoController extends Portabilis_Controller_Page_EditController
         $options = [
             'required' => false,
             'label' => '',
-            'placeholder' => 'Parentesco',
+            'placeholder' => 'Parentesco/Telefone',
             'max_length' => 150,
-            'size' => 15,
+            'size' => 30,
         ];
 
         $this->inputsHelper()->text('parentesco_cinco', $options);
