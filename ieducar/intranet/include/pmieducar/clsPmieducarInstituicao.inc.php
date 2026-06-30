@@ -100,6 +100,8 @@ class clsPmieducarInstituicao extends Model
 
     public $obrigar_telefone_pessoa;
 
+    public $ano_bloqueio_distribuicao_uniforme;
+
     public function __construct(
         $cod_instituicao = null,
         $ref_usuario_exc = null,
@@ -132,7 +134,8 @@ class clsPmieducarInstituicao extends Model
         $permitir_matricula_fora_periodo_letivo = null,
         $ordenar_alunos_sequencial_enturmacao = null,
         $obrigar_telefone_pessoa = null,
-        $obrigar_cpf = null
+        $obrigar_cpf = null,
+        $ano_bloqueio_distribuicao_uniforme = null
     ) {
 
         $this->_schema = 'pmieducar.';
@@ -190,7 +193,8 @@ class clsPmieducarInstituicao extends Model
             bloquear_vinculo_professor_sem_alocacao_escola,
             permitir_matricula_fora_periodo_letivo,
             ordenar_alunos_sequencial_enturmacao,
-            obrigar_telefone_pessoa
+            obrigar_telefone_pessoa,
+            ano_bloqueio_distribuicao_uniforme
         ';
 
         if (is_numeric($ref_usuario_cad)) {
@@ -314,6 +318,10 @@ class clsPmieducarInstituicao extends Model
 
         if (is_bool($obrigar_telefone_pessoa)) {
             $this->obrigar_telefone_pessoa = $obrigar_telefone_pessoa;
+        }
+
+        if (is_numeric($ano_bloqueio_distribuicao_uniforme)) {
+            $this->ano_bloqueio_distribuicao_uniforme = $ano_bloqueio_distribuicao_uniforme;
         }
     }
 
@@ -732,6 +740,12 @@ class clsPmieducarInstituicao extends Model
                 $gruda = ', ';
             }
 
+            if (is_numeric($this->ano_bloqueio_distribuicao_uniforme) and !empty($this->ano_bloqueio_distribuicao_uniforme)) {
+                $campos .= "{$gruda}ano_bloqueio_distribuicao_uniforme";
+                $valores .= "{$gruda}'{$this->ano_bloqueio_distribuicao_uniforme}'";
+                $gruda = ', ';
+            }
+
             if (is_string($this->orgao_regional) and !empty($this->orgao_regional)) {
                 $campos .= "{$gruda}orgao_regional";
                 $valores .= "{$gruda}'{$this->orgao_regional}'";
@@ -1114,6 +1128,14 @@ class clsPmieducarInstituicao extends Model
                 $gruda = ', ';
             } else {
                 $set .= "{$gruda}obrigar_telefone_pessoa = false ";
+                $gruda = ', ';
+            }
+
+            if (is_numeric($this->ano_bloqueio_distribuicao_uniforme) and !empty($this->ano_bloqueio_distribuicao_uniforme)) {
+                $set .= "{$gruda}ano_bloqueio_distribuicao_uniforme = '{$this->ano_bloqueio_distribuicao_uniforme}'";
+                $gruda = ', ';
+            } else {
+                $set .= "{$gruda}ano_bloqueio_distribuicao_uniforme = null ";
                 $gruda = ', ';
             }
 

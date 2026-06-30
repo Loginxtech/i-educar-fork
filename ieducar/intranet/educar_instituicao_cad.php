@@ -109,6 +109,8 @@ return new class extends clsCadastro
 
     public $obrigar_telefone_pessoa;
 
+    public $ano_bloqueio_distribuicao_uniforme;
+
     public function Inicializar()
     {
         $retorno = 'Novo';
@@ -381,6 +383,16 @@ return new class extends clsCadastro
             desc: null
         );
 
+        $this->campoNumero(
+            nome: 'ano_bloqueio_distribuicao_uniforme',
+            campo: 'Ano de bloqueio da distribuição de uniforme',
+            valor: $this->ano_bloqueio_distribuicao_uniforme,
+            tamanhovisivel: 4,
+            tamanhomaximo: 4,
+            obrigatorio: false,
+            descricao: 'Bloqueia cadastros de distribuição de uniforme do ano informado e de anos anteriores.'
+        );
+
         $scripts = ['/vendor/legacy/Cadastro/Assets/Javascripts/Instituicao.js'];
         Portabilis_View_Helper_Application::loadJavascript(viewInstance: $this, files: $scripts);
         $styles = ['/vendor/legacy/Cadastro/Assets/Stylesheets/Instituicao.css'];
@@ -460,6 +472,7 @@ return new class extends clsCadastro
         $obj->permitir_matricula_fora_periodo_letivo = !is_null($this->permitir_matricula_fora_periodo_letivo);
         $obj->ordenar_alunos_sequencial_enturmacao = !is_null($this->ordenar_alunos_sequencial_enturmacao);
         $obj->obrigar_telefone_pessoa = !is_null($this->obrigar_telefone_pessoa);
+        $obj->ano_bloqueio_distribuicao_uniforme = $this->ano_bloqueio_distribuicao_uniforme;
 
         $editou = $obj->edita();
         if ($editou) {
